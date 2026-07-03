@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#061A17">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:id="@+id/guide_menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView android:id="@+id/icon_guide_home" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp" android:text="🏠 راهنمای خانه" android:textColor="#FFFFFF" android:textSize="18sp" />
+            <TextView android:id="@+id/icon_guide_ocr" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp" android:text="📸 راهنمای فاکتور" android:textColor="#FFFFFF" android:textSize="18sp" />
+            <TextView android:id="@+id/icon_guide_consulting" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp" android:text="💬 راهنمای مشاوره" android:textColor="#FFFFFF" android:textSize="18sp" />
+            <TextView android:id="@+id/icon_guide_sync" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp" android:text="🔄 راهنمای همگام‌سازی" android:textColor="#FFFFFF" android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/guide_detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView android:id="@+id/guide_title_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#80CBC4" android:textSize="20sp" android:textStyle="bold" />
+            <TextView android:id="@+id/guide_diagram_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textColor="#FFFFFF" android:typeface="monospace" />
+            <TextView android:id="@+id/guide_description_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textColor="#FFFFFF" />
+            <Button android:id="@+id/btn_back_to_guide_menu" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="بازگشت" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

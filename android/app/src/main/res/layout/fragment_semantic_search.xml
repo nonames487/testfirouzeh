@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#061A17"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/et_semantic_query"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="جستجوی معنایی دفتر"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#80CBC4" />
+
+    <Button
+        android:id="@+id/btn_search_semantic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="جستجو" />
+
+    <TextView
+        android:id="@+id/txt_semantic_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

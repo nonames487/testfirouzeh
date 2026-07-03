@@ -1,0 +1,67 @@
+# FIROOZEH AI - OPTIMIZED DEVELOPMENT CONTEXT & COMPACT HISTORY [v10.0]
+# DESIGNED TO BE INGESTED INSTANTLY FOR CONTEXT CONSERVATION AND MAXIMUM PROCESSING SPEED
+
+[METADATA]
+Package: ai.arena.hisabdar.modern1405
+Version: 10.0-mvvm-ultimate-learning (v1910)
+SDK: minSdk=26 / targetSdk=35 / compileSdk=35
+Stack: Java (Android-MVVM) + Python 3 FastAPI + SQLAlchemy (SQLite/Postgres)
+Status: Stable Production-Grade, Dual-Mode, Self-Healing, Self-Learning
+
+[ROOM DATABASE SCHEMAS (Version 10)]
+1. parties (id INTEGER PK, name TEXT, phone TEXT, nationalId TEXT, balance INTEGER)
+2. products (id INTEGER PK, name TEXT, barcode TEXT, stock REAL, cost INTEGER, salePrice INTEGER, lastPurchasePrice INTEGER, category TEXT)
+3. documents (id INTEGER PK, type TEXT, partyId INTEGER, total INTEGER, vat INTEGER, paymentMethod TEXT, createdAt INTEGER)
+4. invoice_items (id INTEGER PK, documentId INTEGER, productId INTEGER, qty REAL, unitPrice INTEGER, total INTEGER)
+5. cheques (id INTEGER PK, partyId INTEGER, amount INTEGER, dueAt INTEGER, status TEXT, isIncoming INTEGER)
+6. credits (id INTEGER PK, partyId INTEGER, amount INTEGER, description TEXT, createdAt INTEGER, paid INTEGER)
+7. cash_accounts (id INTEGER PK, name TEXT, balance INTEGER, active INTEGER)
+8. cash_transactions (id INTEGER PK, accountId INTEGER, type TEXT, amount INTEGER, createdAt INTEGER)
+9. cash_discrepancies (id INTEGER PK, expected INTEGER, actual INTEGER, diff INTEGER, createdAt INTEGER, note TEXT)
+10. audit_log (id INTEGER PK, action TEXT, entityType TEXT, entityId INTEGER, createdAt INTEGER, details TEXT)
+11. sync_queue (id INTEGER PK, entityType TEXT, payloadJson TEXT, synced INTEGER, createdAt INTEGER)
+
+[SAFE ROOM MIGRATIONS (AppDatabase.java)]
+- MIGRATION_7_8: Creates table `sync_queue` and `cash_discrepancies`.
+- MIGRATION_8_9: Alters table `products` to ADD COLUMN `lastPurchasePrice` INTEGER DEFAULT 0.
+- MIGRATION_9_10: Creates table `audit_log`.
+- WARNING: fallbackToDestructiveMigration() REMOVED to protect merchant data.
+
+[SOLVED BUGS (BUG-01 to BUG-07)]
+- BUG-01 & BUG-07: Implemented `stock < quantityOrdered` check in `AccountingRepository.java`. Aborts transaction & returns custom error toast with AlertDialog BEFORE local db commit.
+- BUG-02: Fixed `realDebtAgeDays` calculation using standard millisecond-to-day conversion math.
+- BUG-03: Thread-safe global ID generator in `IdGenerator.java` using atomic sequence (`AtomicLong`) and `UUID` to avoid transaction conflicts in offline queues.
+- BUG-04: Fixed search slowness in `AccountingDao.java`. Replaced `LIKE %query%` with index-backed Prefix search `LIKE :query || '%'`.
+- BUG-05: Replaced additive cash estimates with actual dynamic Cash Flow calculation: `netCashFlow = (Inflows - Outflows) + AdjustmentBase`.
+- BUG-06: Thread-safe off-UI-thread database transactions using `ExecutorService` and handlers to avoid UI lockups with helpful Dialog messages.
+
+[HYBRID DATA CENTER (AccountingRepository.java)]
+- Online: Fetches fresh data via `POST /sync` from FastAPI Server, performs write-through local cache update in Room DB, serves updated data.
+- Offline: Swaps seamlessly to local Room SQLite cache without lag, records actions to `sync_queue`, schedules WorkManager.
+
+[ROBUST SYNC HANDSHAKE (LWW Conflict Resolution)]
+- Client pushes `client_logs` payload from `sync_queue` to server `/sync`.
+- Server uses Last-Write-Wins (LWW) timestamp comparisons on SQLAlchemy entities, applies changes, and extracts server updates since client's last sync time.
+- Client processes server updates, bulk-merges them, and clears synced items from `sync_queue`.
+
+[SELF-HEALING & AUTOMATED DIAGNOSTICS (AppHealthMonitor.java)]
+- Asynchronous DB check: runs integrity queries, detects and purges orphaned records (e.g. `invoice_items` with missing parent document ID), checks sync queue length.
+- Latency check: evaluates network ping to cloud `/health/check`.
+- Pushes dynamic client telemetry logs to server via `/telemetry/report` in case of anomalies.
+
+[ADVANCED MERCHANT TOOLKIT]
+- BazaarNotificationUtil.java: Formats polite, custom-tailored bazaar debt reminders. Routes intent directly via Eitaa, Bale, WhatsApp, Telegram, or SMS.
+- BazaarCreditScoringEngine.java: On-device scoring (0-1000). Penalizes bounced cheques (-120 pts per bounce), delay averages, and incorporates peer reputational tiers (Amin, Motamad). Recommends maximum credit caps.
+- Dynamic Stock Liquidator: Identifies stagnant items (>120 days) and triggers dynamic discount recommendations (e.g. 15% markdown) to unlock working capital.
+
+[SELF-LEARNING COGNITIVE FIROOZEH AGENT (Python Server)]
+- Class `SelfLearningFiroozehAgent`: Learns and profiles merchant business styles (Risk Appetite: Conservative vs Trust-heavy).
+- Reinforcement Loop: Receives rating feedbacks via `/chat/feedback`. Adjusts agent weights dynamically. If feedback is negative on credit recommendations, adapts profile to 'Very Conservative' (cash-only). If positive, expands 'Trust-heavy' bazaar-centric advice.
+- Integrates micro-business finance (Replacement cost, inventory turnover) with Bazaar trade sociology (Abero, peer reputation, friendly market vocabulary: حاجی، مخلصم، دخل، سررسید).
+- Voice-Assisted OCR Correction (/analyze-invoice-voice-correct): Converts voice updates (e.g., "تعداد ردیف اول رو ۲ برابر کن") to modified JSON invoice outputs using Claude LLM reasoning.
+
+[UI/UX GRAPHICAL SCHEMAS]
+- Colors: Dark Green Background (#061A17), Brand Turquoise (#006D5B), Accent Gold (#D9A441), Danger Red (#DC2626).
+- HomeFragment: Toggles between Studio Mode (quick AI sales/purchases, 3 KPIs) and Classic Mode (full menu).
+- SettingsGuideFragment: Settings handbook displaying step-by-step ASCII visual flowcharts of Home, OCR, Sync and Consulting Room.
+- NewsAcademyFragment: Located in the 'News' (اخبار) page, displaying daily 30-second lessons (financial psychology, stock turn).

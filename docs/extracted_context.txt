@@ -1,0 +1,473 @@
+--- PAGE 1 ---
+Hisabdar Firoozeh AI
+ Master Developer Context — v10.0
+ arena.ai | ■■■■■■■ ■■■■■■ AI — ■■■■■■■ ■■■■ ■■■■■
+■ ■■■■■ ■■■ ■■■■ AI ■■■■■■■■■■■: ■■■■■■■ ■■ ■■■■■ ■ ■■■■■ ■■■ ■■■. ■■■■■ ■■■■■ ■■ ■■■■
+■■■. ■■ ■■ ■■■■ ■■■■: APK + ■■■■ ■■■■ (ZIP) + ■■■■■■ + ■■■■■■ ■■ ■■■■■ ■■■. ■■■■■ UI ■■■■ ■■ ■■
+■■■■■■■■■■■ ■■■■■■ ■■■■ ■■■■■ ■■■■ ■ ■■■■ ■■■■■■■ ■■■■.
+■■■■■■■
+■■■■■
+Package
+ai.arena.hisabdar.modern1405
+■■■■ ■■■■
+9.9-mvvm-quick-sale-receipt (versionCode=1909)
+SDK
+minSdk=26 / targetSdk=35 / compileSdk=35
+■■■■■■
+MVVM + Room v8 + Fragment + LiveData + OkHttp3
+■■■■
+Java (Android) + Python 3 FastAPI (Backend)
+DB
+Room SQLite — hisabdar_firoozeh_db — 11 Entity
+OCR ■■■■
+ML Kit Text Recognition (■■■■■ ■■■■■ ■■■■)
+OCR ■■■
+Google Vision API ■■ Claude Vision API
+■■■■■
+ML Kit BarcodeScanning + CameraX
+■■■■
+WorkManager + sync_queue Entity
+
+--- PAGE 2 ---
+■. ■■■■■■ ■■■■ ■■■■■■ ■■■■
+■■■ ■■■■■■■■■■■■■ ■■■■■ ■■■■ UI ■■ ■■ ■■■■ ■■■■■■■. ■■■■■ ■■■■■ (Dark) ■■ ■■■
+■■■■■■■■■ ■ ■■■■■. ■■■: ■■■■■ ■■■■■ ■■■■ ■■■■■■■ ■■ ■■ ■■■.
+ ■■■■ ■■■■ — Studio Mode
+ ■■■■■■ ■■■■ — ■■■■
+
+--- PAGE 3 ---
+■■■■ ■■■■■■ AI
+ ■■■■■ ■■■■
+
+--- PAGE 4 ---
+■■■■■■■
+ ■■■■■ — ■■■■■■■■
+
+--- PAGE 5 ---
+■■■■■ — ■■■■ ■■■■■■
+
+--- PAGE 6 ---
+■. ■■■■■■ ■■■■■
+■.■ ■■■■■■■■■ MVVM
+UI Layer: Fragment → ViewModel → LiveData → UI Data Layer: ViewModel → Repository → Room DAO / OkHttp AI Layer:
+OkHttp POST → Python FastAPI → JSON → Repository Sync: Room sync_queue → WorkManager → POST /sync (offline-first)
+■.■ ■■■■■■■■■ ■■■■
+■■■■■
+■■■■ ■■■
+■■■■■■ ■■■■■■
+Android Camera → ML Kit OCR → ■■■ → OkHttp POST /analyze-invoice-image → JSON → Room
+■■■■■■ ■■■■/■■■■
+SpeechRecognizer/EditText → POST /analyze-invoice-text → JSON → Room
+■■ ■■■■■■
+EditText + business context → POST /chat → ■■■■ ■■■■■ → ■■■■■
+■■■ ■■■■■
+Room products → POST /market/real-profit → nominalProfit + realProfit
+■■ ■■■■
+Room credits → POST /market/debt-aging → status + recommendation
+■■■■ ■■■■
+CameraX Barcode → Room findByBarcode → Preview → Confirm → QuickReceiptUtil
+■.■ ■■■■■■ ■■■■■■■ Room (version 8 — 11 Entity)
+Entity
+■■■■■■■ ■■■■■
+parties
+id,name,phone,nationalId,balance
+products
+id,name,barcode,stock,cost,salePrice,lastPurchasePrice,category
+documents
+id,type(BUY/SELL),partyId,total,vat,paymentMethod,createdAt
+invoice_items
+id,documentId,productId,qty,unitPrice,total,costAtSale
+cheques
+id,partyId,amount,dueAt,status,isIncoming,description
+credits
+id,partyId,amount,description,createdAt,paid
+cash_accounts
+id,name,balance,active
+cash_transactions
+id,accountId,type,amount,createdAt,description
+cash_discrepancies
+id,expected,actual,diff,createdAt,note
+audit_log
+id,action,entityType,entityId,createdAt,details
+sync_queue
+id,entityType,payloadJson,synced,createdAt
+
+--- PAGE 7 ---
+■. ■■■■■ ■■■■■■■■ — ■■ ■■■ ■ ■■ ■■■■
+■■■■■
+■■■■■
+■■■■■■■
+■■■ ■■■■■■ ■■■■/■■■■
+■
+Dialog ■■■■ + ■■■■■ ■■■■■■■
+■■■■ ■■■■ ■■■■■
+■ v9.9
+■■■■ → preview → confirm → ■■■■
+■■■■ PDF
+■ v9.9
+InvoicePdfUtil + share
+■■■■■ ■■
+■ v7.8
+■■■■■■■/■■■■■■■■ ■■■■■■■ ■■■■■ ■■■■■■
+■■■■■ ■■■■
+■ v7.8
+■■■■ ■■■■■ ■■■■■ ■■■■■■■■■
+■■■■■■■ ■■■■
+■ v7.8
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+■■■■■ / Cash
+■ v9.x
+■■■ ■■■■■■ ■■■■■■■ ■■■■■■
+OCR ■■■■■■
+■■ ■■■■
+ML Kit ■■■■■ ■■■ ■■■■■■■■ — ■■■■ ■■ Cloud OCR
+■■ ■■■■■■ AI
+■ if/else
+■■■ keyword match — ■■■■ ■■ LLM ■■■■■
+■■■■ ■■■■■■ ■■■■■
+■ v7.4
+■■■ context + ■■■ ■■■■ ChatGPT/Claude/Gemini/...
+■■■ ■■■■■
+■ Backend
+POST /market/real-profit
+■■ ■■■■
+■ Backend + v7.7
+timestamp ■■■■■ + POST /market/debt-aging
+MVVM Refactor
+■ v8-v9
+Fragment+ViewModel+Repository+Room
+Migration Room
+■
+fallbackToDestructiveMigration — ■■■■■■■ ■■■ ■■■■■■■!
+Audit Log
+■■
+Entity ■■■■■ ■■■ ■■ ■■■■■■■
+■■■■■■■■■■■■
+■
+■■■■ ■■■■■■■■■■ ■■■■
+■■■■■■■■■■ ■■■■■■
+■
+■■ ■■■■ ■■■
+■■■■■■ ■■■■■■
+■■
+■■■■■■ ■■■■■ — Bluetooth ■■■■■ ■■■■ ■■■■
+
+--- PAGE 8 ---
+■. ■■■■■■ ■ ■■■■■■ ■■■ (■■■■■■■■■ ■
+■■■■■■■■■■)
+■.■ ■■■■■■■ ■■■■■■■■■ (v7.7-v7.8)
+ID
+■■■
+■■■■■
+BUG-01
+■■■■■■ ■■■■ ■■■■■■ ■■ ■■■■ AI
+■■ stock<qty + AlertDialog ■■■■■
+BUG-02
+■■ ■■■■ ■■■■ ■■ hashCode ■■■!
+realDebtAgeDays ■■ timestamp ■■■■■
+BUG-03
+ID ■■■■■■ (currentTimeMillis+random)
+AtomicLong ■■■■■■■ ■■■■
+BUG-04
+■■■■■■■ ■■■■■■ ■■■ ■■■■ (contains)
+startsWith ■■■■
+BUG-05
+cashBalance ■■■■■■■■■■■
+■■■■■ ■■■ ■■ netCashFlow
+BUG-06
+■■■■ ■■■■■■ ■■ saveData
+commit + AlertDialog ■■ ■■■■ ■■■
+BUG-07
+■■■■■■ ■■■■ ■■ ■■■■ ■■■■
+■■■■ pattern BUG-01
+■.■ ■■■■■■ ■■■ ■■■■■■■■■■ — ■■■■ ■■■■■
+■ ■■■ ■■■■■■ ■■■■ ■■■ ■■ ■■ ■■■■■ ■■■ ■■■■■ ■■■■!
+■■■■
+■■■
+■■■
+■■■■■■
+fallbackToDestructiveMigration
+AppDatabase.java
+■■ ■■■■■ Schema → ■■■ ■■■ ■■■■■■■■ ■■■■■!
+■ ■■■■■■
+LegacyMainActivity ■■ ■■ ■■■■
+LegacyMainActivity.java
+Fragment■■■ ■■■■ ■■ Legacy ■■■■■■■■■■
+■ ■■■■■■
+OCR ■■■■■ ML Kit ■■■■
+OcrInvoiceProcessor.java
+■■■■■■■■■ ■■■■■ ■■■■ ■■■■■■ ■■■■■■■■
+■ ■■■■■■
+/chat ■■■ if/else
+Python main.py → chat()
+■■■■■■ AI ■■■■■■■ ■■■
+■ ■■■■■■
+/analyze-invoice-image placeholder
+Python main.py → analyze_invoice_image()
+OCR ■■■■■■ ■■■ ■■■■■■■
+■ ■■■■■■
+■■■■ ■■■■■■■■■■■■
+■■■ ■■
+■■■■■ ■■■■ ■■■ ■■■ ■■■■■■■■■ ■■ ■■ ■■■ ■■■■
+■ ■■■
+Audit Log ■■ ■■■■■■■
+AccountingRepository
+■■■■■■ ■■■■■■■ ■■■■■■■
+■ ■■■■■■■■
+cross-sell hard-coded
+Python → market_cross_sell()
+■■■■■■■■■ ■■■■■ ■ ■■■■■■■■■
+■ ■■■■■■■■
+/sync ■■■■■■■ in-memory
+Python → sync()
+■■■■■ restart ■■■■ ■■■ ■■■■■■■ ■■■ ■■■■■■■
+■ ■■■
+
+--- PAGE 9 ---
+■. ■■■■ ■■■ ■■■ ■■■■■■ ■■■■■
+■■■ ■■■■■: ■■ ■■■■■■ ■■■■ ■■■■■■ ■■■■■■■■■■ ■■ ■■■■■■ ■■■■■■■■■ ■■■■■■ ■■■■ ■■■■■■■ ■
+■■ ■■■■■■ ■■■■■■■ ■■ ■■■■■ ■■■■ ■■■■■ ■■ ■■ ■■■■■ ■■■■■■.
+■.■ ■■■ ■ — OCR ■■■■■ ■■■■■■ (■■■■■■ ■■■)
+■■■■■■■ ■■■■ ML Kit ■■ Cloud OCR + LLM ■■■■ ■■■■■■ ■■■■■■■■■ ■■■■■:
+# Python: app/main.py → async def analyze_invoice_image() # ■■■■■ A: Claude Vision API (■■■■■■ ■■■■ ■■■■■) import
+anthropic, base64 client = anthropic.Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY')) img_bytes = await file.read()
+b64 = base64.b64encode(img_bytes).decode() msg = client.messages.create( model='claude-sonnet-4-6', max_tokens=1000,
+messages=[{'role':'user','content':[ {'type':'image','source':{'type':'base64','media_type':'image/jpeg','data':b64}},
+{'type':'text','text': '■■■ ■■■■■■ ■■■■■ ■■ ■■■■■■ ■■. ■■■ JSON ■■■:\n' '{"party":"■■■ ■■■
+■■■■","type":"sale|purchase",' '"items":[{"name":"■■■ ■■■■","qty":1,"price":1000,"total":1000}],'
+'"total":0,"date":""}'} ]}]) return parse_llm_json(msg.content[0].text, documentType) # ■■■■■ B: Google Vision API
+from google.cloud import vision client_v = vision.ImageAnnotatorClient() image = vision.Image(content=img_bytes)
+raw_text = client_v.text_detection(image=image).text_annotations[0].description # ■■■ raw_text ■■ ■■ LLM ■■■■■ ■■
+■■■■ ■■■■■■■■■
+■.■ ■■■ ■ — ■■ ■■■■■■ ■■■■■
+# Python: app/main.py → def chat(req: ChatRequest) system = f''' ■■ ■■■■■■■ ■■■■■■ ■■■■■■ AI ■■■■ ■■■■■■■■
+■■■■■ ■■■■. ■■■■■ ■■■■■■■■: - ■■■■: {req.totals.get('sales',0):,} ■■■■ - ■■■■:
+{req.totals.get('purchases',0):,} ■■■■ - ■■■■ ■■■■■: {req.totals.get('inventory',0):,} ■■■■ - ■■■■■■■ ■■■■:
+{req.totals.get('credits',0):,} ■■■■ - ■■ ■■■■■■ ■■■■■: {req.totals.get('dueCheques',0):,} ■■■■ ■■■■■■ ■■■■:
+■■■■■. ■■■■■. ■■■■. ■■■■■ ■■ ■■■■ ■■■■. ■■■■■ ■■■■. ''' msg =
+client.messages.create(model='claude-sonnet-4-6', max_tokens=400, system=system,
+messages=[{'role':'user','content':req.question}]) return {'answer': msg.content[0].text}
+■.■ ■■■ ■ — ■■■■■ ■■■■■■■ ■■■■■■ (What to Buy/Price)
+■■■■■■
+■■■■■
+■■■■■ AI
+■■■■■■■ ■■■■
+■■■■■■ ■■■■ + ■■■■ ■■■■ ■■ ■■■
+■■ ■■■■ ■■■■■ ■■ ■■
+■■■■■■■■■■
+■■■■ ■■■■ + ■■■■ + ■■■■
+■■■■ ■■■■■■■■ ■■■■
+■■■■■ ■■■■■
+stock < min_threshold
+■■■■■ + ■■■■■■■ ■■■■■
+■■■■■ ■■■
+■■■■ ■■■ ■■■■ vs ■■■ ■■■
+■■■■ ■■■ + ■■■ ■■■■■■■
+■■■■■ ■■■■■■
+■■ ■■■■ > 90 ■■■
+■■■■■: ■■■■■ ■■ ■■■■■■■
+■.■ ■■■ ■ — ■■■■ ■■■■ ■■■■■■■ (■■■■■■■)
+■■■■■ ■■■ fine-tuned ■■■ ■■■■■■■■ ■■■■■ ■■■■■:
+■■■■■
+■■■ ■■■■
+■■■■■■■■ ■■■■
+■■■ ■■,■■■+ ■■■■■■ ■■■■■ ■■ ■■■■■■■ (■■ ■■■■■)
+■■■■■■■■■■■
+■■■■■■■■■ ■■■■■ ■■■■■■■ ■■■■■ ■■■■■■■ ■■■ ■■■■
+Fine-tuning
+■■■■■ ■■■ Claude/GPT ■■ ■■■■■■■■ ■■■■■■
+Embedding
+■■■■ vector store ■■ ■■■■■■■ ■■■■■
+RAG
+■■■■■■ ■■■■■■ ■■■ ■■■■■■■■ ■■■■■
+
+--- PAGE 10 ---
+■. ■■■■ ■■■ ■■■■■ (Roadmap)
+■■■
+■■■■■■
+■■■■■
+■■■■■■■■
+■
+■
+Room Migration ■■■■■ — ■■■■■■■ ■■ ■■■ ■■■■
+—
+■
+■
+OCR ■■■■■ — Claude Vision ■■ Google Vision
+API Key
+■
+■
+■■ ■■■■■ ■■ LLM — ■■■■■ ■■ Anthropic API
+API Key
+■
+■
+■■■■■■ ■■■■ LegacyMainActivity ■■ Fragment■■■
+—
+■
+■
+■■■■■■■■■■■■ ■ ■■■■■■■ (Export JSON + Google Drive)
+—
+■
+■
+■■■■■ ■■■■■■■ ■■■■ ■■■■■■ (■■■■■■■)
+—
+■
+■
+■■■■■ ■■■■■■■ ■■■■ ■■■■■■
+LLM
+■
+■
+■■■■■■■■■■ ■■■■■■ ■■■■■
+LLM
+■
+■
+PostgreSQL ■■■■ /sync ■■ backend
+—
+■
+■
+■■■■ ■■■■■■■
+—
+■
+■
+■■■■■■ ■■■■■■ Bluetooth
+—
+■
+■
+■■■■ ■■■■ / ■■■■■ ■■■
+—
+■
+■
+SaaS ■■■ ■■■■■■ + ■■■ ■■
+Backend ■■■■
+■
+■
+Fine-tuned AI ■■■■ ■■■■■ ■■■■■
+■■■■ ■■K+
+
+--- PAGE 11 ---
+■. ■■■■■■■ ■■■■■ UI/UX — ■■ ■■■■■■■■■■■
+■■■■■ ■■■■■■ ■■■: ■■■ ■■■■■■ ■■■■■■ ■■■■ ■■■■ ■■■ ■■■■■ ■■ ■■■. ■■■■■ ■■■■ ■■■■ ■■ ■■■■
+■■ ■■■■■ ■■ ■■■■ ■■■■.
+■■■
+■■■■■
+■■■
+Dark theme — #061A17 ■■■■■■■■■ #006D5B ■■■■■■ #D9A441 ■■■■■ ■■■■■ #DC2626 ■■■
+■■■■
+■■■■■ 16sp ■■■■ ■■■ ■■■■■ 14sp ■■■■ ■■■■■■■■ — ■■■■ ■■■■■ ■■■■
+■■■■
+■■■■■ 52dp ■■■■■■ — ■■■■ ■■■■ ■■■■■ ■■■■
+■■■■■
+padding ■■■■■ 16dp — ■■■■■■■ ■■ ■■■■■ 8dp ■■ ■■
+■■■■■
+■■■■■ ■■■■■ ■■■■■ (■■■) + ■■■■ ■■■■ ■■ ■■■■■
+■■■■■■
+Bottom Navigation ■■ ■ ■■: ■■■■■ ■■■■■■ ■■■■■ ■■■■■ ■■■■■■■■ ■■■■■■■
+■■■■■
+Badge ■■■■ ■■■ ■■■■ ■■■■■ ■■■■ ■■ ■■■■■■ / ■■■■ ■■■■■
+■■■■■■
+Progress bar ■■ ■■■ ■■■■■ — ■■■■ ■■■■■ ■■ ■■■■ feedback ■■■■■
+■■■
+■■ ■■■■ ■■ ■■ ■■ — ■■■■■■ ■■■■■ ■■ ■■■■ ■■■■ — ■■■■■■ ■■■ ■■■■ ■■■■
+■■■■■
+■■ ■■■■■■ ■■■ (■■■■ ■■■■■) ■■■■ ■■ ■■■■■ ■■■■
+■■■■■■
+■■■ ■■■■■■ ■■■■■■ ■■■ ■■■■ — Badge ■■■■ ■■■■■ online ■■■
+■.■ ■■■■ ■■■■ ■■■■■■■
+■■■
+■■■■■
+Header
+■■■■ + ■■■ ■■■■■■■■ + ■■■■■ ■■■■ ■■■■■ + ■■■■ ■■■■■
+■■■■ KPI
+■■■■ ■■■■■ | ■■■■ ■■■■■ | ■■■■■■ ■■■■■ — ■ ■■■ ■■■■
+■■■■■ ■■■■■■
+■■■ ■■ ■■■■■■ / ■■■■ ■■■■■ / ■■■■■■ ■■ → Banner ■■■/■■■■
+■■■■■■■■ ■■■■
+■■■■ AI | ■■■■ AI | ■■■■ | ■■ — ■ ■■■■ ■■■■ ■■■■
+■■■■■ ■■■■■■■■■
+■ ■■■ ■■■ ■■ ■■■■ ■■■■/■■■■ + ■■■■ + ■■■■ ■■■■ (■■■■■■ ■ ■■■■ ■■■)
+■■■■■■ AI
+■■■■ ■■ ■■ AI ■■ ■■■■■ — ■■■■■ ■■■■ ■■■■■
+
+--- PAGE 12 ---
+■. Python Backend — ■■■■■ ■ ■■ ■■■■■
+■.■ Endpoints ■■■■
+Endpoint
+■■■■■
+■■■■■ ■■■■
+GET /health
+■
+—
+POST /analyze-invoice-text
+■ Regex
+■■■■■ ■■ LLM ■■■■ ■■■ ■■■■■
+POST /analyze-invoice-image
+■ Placeholder
+■■■■■ ■■ Claude Vision ■■ Google Vision
+POST /chat
+■ if/else
+■■■■■ ■■ Anthropic API
+POST /compliance/check
+■
+—
+POST /market/real-profit
+■
+—
+POST /market/debt-aging
+■
+—
+GET /market/cross-sell
+■ Hard-coded
+■■■■■ ■■ ML
+POST /sync
+■ In-memory
+■■■■■■■■■■ PostgreSQL
+■.■ requirements.txt ■■■■
+fastapi uvicorn pydantic python-multipart # ■■■■ ■■■■ AI ■■■■■ ■■■■■ ■■: anthropic google-cloud-vision pillow
+psycopg2-binary sqlalchemy
+■.■ Dockerfile
+FROM python:3.11-slim WORKDIR /app COPY requirements.txt . RUN pip install --no-cache-dir -r requirements.txt COPY app/
+./app/ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+--- PAGE 13 ---
+■. ■■■■■ ■■■ ■■■■■■ ■■■■ AI ■■■■■■■■■■■
+■ ■■■ AI ■■■ ■■■ ■■ ■■■■■■■■ — ■■■ ■■■ ■■■■■■■■ ■■■■ ■■■■!
+■■■■■■ ■■■
+■■■■■
+■■■■■
+■■■■■ ■■ ■■■■
+APK + ZIP ■■■■ ■■■■ + Python Backend + ■■■■■■■ ■■■ — ■■■■■
+■■■■■■■■ ■■■■■
+■■■■■ ■■■■■ ■■■■ ■■■. ■■■ ■■■■■ ■■■■■. ■■■■ ■■ ■■■■ ■■■■■.
+Package ■■■■
+ai.arena.hisabdar.modern1405 — ■■■■ ■■■■■ ■■■
+Room Migration
+■■ ■■■■■ Entity → Migration ■■■■■ ■■ ■■ fallback
+■■■■ UI
+■■■ ■■■■■■■ UI ■■■■■ — ■■■■■ ■■■■■ — ■■■■ ■■■■
+■■■■■■ ■■■
+■■■ ■■■■■■ ■■■■ ■■■■■■■ ■■■ ■■■■ — sync ■■■■■ online
+■■■■■ ■■■■■■
+UI ■■■■■ ■■■■ ■■■■■ ■■ ■■■■ ■■■■ — ■■ ■■■■■■
+LegacyMainActivity
+■■■ ■■ ■■■■■■■■ ■■ Fragment ■■■ ■■■■ ■■ ■■■■ ■■■■ ■■■
+API Keys
+ANTHROPIC_API_KEY ■■ ■■ env ■■■■■ — ■■■■ hard-code ■■■
+■■■
+■■ ■■■■■ ■■■■ ■■■■■ ■■ test case ■■■■■ ■■■■
+■■■■■ ■■■ — OCR ■■■■■
+# ■. ■■ Python backend■ ■■■ ■■ ■■ requirements.txt ■■■■■ ■■: # anthropic # ■. ■■■ endpoint ■■ ■■■■ ■■
+(app/main.py): @app.post('/analyze-invoice-image', response_model=InvoiceResult) async def analyze_invoice_image(file:
+UploadFile = File(...), documentType: str = 'sale_invoice'): import anthropic, base64 client =
+anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY']) img_bytes = await file.read() b64 =
+base64.b64encode(img_bytes).decode() ext = file.filename.split('.')[-1].lower() media = 'image/png' if ext=='png' else
+'image/jpeg' prompt = ( '■■■ ■■■■■ ■■ ■■■■■■ ■■■■■ ■■■. ' '■■■ JSON ■■■ ■■■■ ■■■ ■■■■■ ■■■■■:\n'
+'{"party":"■■■ ■■■ ■■■■","type":"sale",' '"items":[{"name":"■■■ ■■■■","qty":1,"price":1000,"total":1000}],'
+'"total":0,"date":"■■■■■"}' ) msg = client.messages.create( model='claude-sonnet-4-6', max_tokens=800,
+messages=[{'role':'user','content':[ {'type':'image','source':{'type':'base64', 'media_type':media,'data':b64}},
+{'type':'text','text':prompt} ]}]) raw = msg.content[0].text.strip() # ■■■ backtick ■■■ ■■■ if
+raw.startswith('```'): raw = raw[7:-3].strip() import json data = json.loads(raw) result =
+InvoiceResult(documentType=documentType, counterparty=data.get('party','■■■■■■')) for it in data.get('items',[]):
+result.items.append(InvoiceItem( title=it.get('name',''), category=category_for(it.get('name','')),
+quantity=it.get('qty',1), unitPrice=it.get('price',0), total=it.get('total',0))) result.subtotal = sum(i.total for i in
+result.items) result.payable = result.subtotal return result
+ Hisabdar Firoozeh AI | arena.ai | Master Context v10.0

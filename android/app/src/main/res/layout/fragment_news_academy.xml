@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#061A17">
+
+    <LinearLayout
+        android:id="@+id/academy_section_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView android:id="@+id/icon_ai_academy_badge" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🎓 آکادمی هوشمند" android:textColor="#FFFFFF" android:textSize="22sp" />
+        <TextView android:id="@+id/lesson_title_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:textColor="#80CBC4" android:textSize="18sp" android:textStyle="bold" />
+        <TextView android:id="@+id/lesson_category_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="#B2DFDB" />
+        <TextView android:id="@+id/lesson_summary_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textColor="#FFFFFF" android:textSize="15sp" />
+        <Button android:id="@+id/btn_play_audio_lesson" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="پخش درس صوتی" />
+        <Button android:id="@+id/btn_next_lesson" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="درس بعدی" />
+    </LinearLayout>
+</ScrollView>

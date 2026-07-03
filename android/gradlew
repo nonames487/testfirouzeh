@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+set -e
+
+APP_HOME=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+GRADLE_VERSION=8.0
+GRADLE_DIST="$APP_HOME/.gradle/bootstrap/gradle-$GRADLE_VERSION"
+GRADLE_BIN="$GRADLE_DIST/bin/gradle"
+
+if [ ! -x "$GRADLE_BIN" ]; then
+  if command -v gradle >/dev/null 2>&1; then
+    exec gradle "$@"
+  fi
+
+  if ! command -v java >/dev/null 2>&1; then
+    echo "ERROR: Java/JDK is required to run Gradle, but java was not found on PATH." >&2
+    exit 1
+  fi
+
+  if ! command -v curl >/dev/null 2>&1 || ! command -v unzip >/dev/null 2>&1; then
+    echo "ERROR: curl and unzip are required to bootstrap Gradle when no system Gradle is installed." >&2
+    exit 1
+  fi
+
+  mkdir -p "$APP_HOME/.gradle/bootstrap"
+  zip_file="$APP_HOME/.gradle/bootstrap/gradle-$GRADLE_VERSION-bin.zip"
+  curl -L --fail --output "$zip_file" "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip"
+  unzip -q "$zip_file" -d "$APP_HOME/.gradle/bootstrap"
+fi
+
+exec "$GRADLE_BIN" "$@"

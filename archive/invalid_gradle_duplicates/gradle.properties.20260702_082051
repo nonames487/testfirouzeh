@@ -1,0 +1,5 @@
+# Project-wide Gradle settings.
+android.useAndroidX=true
+# Automatically convert third-party libraries to use AndroidX
+android.enableJetifier=true
+org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
